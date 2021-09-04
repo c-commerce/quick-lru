@@ -11,15 +11,20 @@
 		"url": "https://sindresorhus.com"
 	},
 	"type": "module",
-	"exports": "./index.js",
+	"exports": {
+		"require": "./_index.cjs",
+		"import": "./index.js"
+	},
 	"engines": {
 		"node": ">=12"
 	},
 	"scripts": {
 		"//test": "xo && nyc ava && tsd",
-		"test": "xo && ava && tsd"
+		"test": "xo && ava && tsd",
+		"build:cjs": "rollup -c _rollup.config.js"
 	},
 	"files": [
+		"_index.cjs",
 		"index.js",
 		"index.d.ts"
 	],
@@ -37,8 +42,11 @@
 		"buffer"
 	],
 	"devDependencies": {
+		"@rollup/plugin-babel": "^5.3.0",
+		"@rollup/plugin-node-resolve": "^13.0.4",
 		"ava": "^3.15.0",
 		"nyc": "^15.1.0",
+		"rollup": "^2.56.3",
 		"tsd": "^0.14.0",
 		"xo": "^0.37.1"
 	},
@@ -46,6 +54,12 @@
 		"reporter": [
 			"text",
 			"lcov"
+		]
+	},
+	"xo": {
+		"ignores": [
+			"./_index.cjs",
+			"./_rollup.config.js"
 		]
 	}
 }
